@@ -1,4 +1,2 @@
-# CLI-Calorie-Calculator
-# Macro-Calculator
-# Macro-Calculator
-# Macro-Calculator
+# Macro Calculator
+# CLI App to calculate macros 
