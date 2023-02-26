@@ -9,5 +9,8 @@ func main() {
 	//make separate functions for formulas
 	//make calculations
 	//show values
-	fmt.Println("***** CALCULATE YOUR MACROS *****")
+	fmt.Println("***** Inspired by: *****")
+	fmt.Println("* https://prophysiquemacros.com/ *")
+	fmt.Println("***** Give it a try *****")
+	fmt.Println("***** Calculate your macros *****")
 }
