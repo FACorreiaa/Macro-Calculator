@@ -2,6 +2,32 @@ package main
 
 import "fmt"
 
+type TdeeData struct {
+	age               int
+	gender            string
+	system            string
+	height            int
+	weight            int
+	formula           string
+	routine           string
+	daysOfExercise    int
+	minutesOfExercise int
+	intensity         string
+}
+
+type Goals struct {
+	name      string
+	intensity int
+}
+
+type Plan struct {
+	name string
+}
+
+type Meals struct {
+	numberOfMeals int
+}
+
 func main() {
 	//info and formula from:
 	//https://prophysiquemacros.com/
