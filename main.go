@@ -30,10 +30,13 @@ func main() {
 	//make separate functions for formulas
 	//make calculations
 	//show values
+	fmt.Println("************************")
 	fmt.Println("***** Inspired by: *****")
 	fmt.Println("* https://prophysiquemacros.com/ *")
 	fmt.Println("***** Give it a try *****")
 	fmt.Println("***** Calculate your macros *****")
+	fmt.Println("************************")
+
 	menu := wmenu.NewMenu("What is your favorite food?")
 	menu.Action(func(opts []wmenu.Opt) error { fmt.Printf(opts[0].Text + " is your favorite food."); return nil })
 	menu.Option("Pizza", nil, true, nil)
