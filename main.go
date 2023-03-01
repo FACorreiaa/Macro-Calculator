@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/manifoldco/promptui"
+	"FACorreiaa/Macro-Calculator/pkg/tdee"
 )
 
 type Goals struct {
@@ -19,37 +19,6 @@ type Meals struct {
 	numberOfMeals int
 }
 
-func chooseSystem() {
-	prompt := promptui.Select{
-		Label: "Select Metric",
-		Items: []string{"imperial", "metric"},
-	}
-
-	_, result, err := prompt.Run()
-
-	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return
-	}
-
-	fmt.Printf("You choose %q\n", result)
-}
-
-func chooseGender() {
-	prompt := promptui.Select{
-		Label: "Select gender",
-		Items: []string{"male", "female"},
-	}
-
-	_, result, err := prompt.Run()
-
-	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return
-	}
-
-	fmt.Printf("You choose %q\n", result)
-}
 func main() {
 	//info and formula from:
 	//https://prophysiquemacros.com/
@@ -66,6 +35,9 @@ func main() {
 	fmt.Println("***** Give it a try *****")
 	fmt.Println("***** Calculate your macros *****")
 	fmt.Println("************************")
-	chooseSystem()
-	chooseGender()
+	tdee.ChooseSystem()
+	tdee.ChooseGender()
+	tdee.ChooseMeasures("height")
+	tdee.ChooseMeasures("weight")
+
 }
