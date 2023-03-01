@@ -37,10 +37,10 @@ func main() {
 	fmt.Println("***** Calculate your macros *****")
 	fmt.Println("************************")
 
-	menu := wmenu.NewMenu("What is your favorite food?")
+	menu := wmenu.NewMenu("Insert your prefered metric")
 	menu.Action(func(opts []wmenu.Opt) error { fmt.Printf(opts[0].Text + " is your favorite food."); return nil })
-	menu.Option("Pizza", nil, true, nil)
-	menu.Option("Ice Cream", nil, false, nil)
+	menu.Option("lb", nil, true, nil)
+	menu.Option("kg", nil, false, nil)
 	menu.Option("Tacos", nil, false, func(opt wmenu.Opt) error {
 		return nil
 	})
