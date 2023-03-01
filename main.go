@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
 
-	"github.com/dixonwille/wmenu"
+	"github.com/manifoldco/promptui"
 )
 
 type Goals struct {
@@ -20,6 +19,37 @@ type Meals struct {
 	numberOfMeals int
 }
 
+func chooseSystem() {
+	prompt := promptui.Select{
+		Label: "Select Metric",
+		Items: []string{"imperial", "metric"},
+	}
+
+	_, result, err := prompt.Run()
+
+	if err != nil {
+		fmt.Printf("Prompt failed %v\n", err)
+		return
+	}
+
+	fmt.Printf("You choose %q\n", result)
+}
+
+func chooseGender() {
+	prompt := promptui.Select{
+		Label: "Select gender",
+		Items: []string{"male", "female"},
+	}
+
+	_, result, err := prompt.Run()
+
+	if err != nil {
+		fmt.Printf("Prompt failed %v\n", err)
+		return
+	}
+
+	fmt.Printf("You choose %q\n", result)
+}
 func main() {
 	//info and formula from:
 	//https://prophysiquemacros.com/
@@ -36,16 +66,6 @@ func main() {
 	fmt.Println("***** Give it a try *****")
 	fmt.Println("***** Calculate your macros *****")
 	fmt.Println("************************")
-
-	menu := wmenu.NewMenu("Insert your prefered metric")
-	menu.Action(func(opts []wmenu.Opt) error { fmt.Printf(opts[0].Text + " is your favorite food."); return nil })
-	menu.Option("lb", nil, true, nil)
-	menu.Option("kg", nil, false, nil)
-	menu.Option("Tacos", nil, false, func(opt wmenu.Opt) error {
-		return nil
-	})
-	err := menu.Run()
-	if err != nil {
-		log.Fatal(err)
-	}
+	chooseSystem()
+	chooseGender()
 }
