@@ -39,5 +39,11 @@ func main() {
 	tdee.ChooseGender()
 	tdee.ChooseMeasures("height")
 	tdee.ChooseMeasures("weight")
+	tdee.ChooseMeasures("age")
+	tdee.ChooseFormula()
+	tdee.ChooseActivity()
+	tdee.ChooseActivity()
+	tdee.ChooseMeasures("How many week days per week do you exercise?")
+	tdee.ChooseMeasures("How many minutes per day do you exercise (cardio & weight lifting combined)?")
 
 }

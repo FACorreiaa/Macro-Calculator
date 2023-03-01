@@ -63,3 +63,51 @@ func ChooseMeasures(measure string) {
 
 	fmt.Printf("You choose %q\n", result)
 }
+
+func ChooseFormula() {
+	prompt := promptui.Select{
+		Label:     "Select formula",
+		Templates: nil,
+		Items:     []string{"athlete", "lean"},
+	}
+	_, result, err := prompt.Run()
+
+	if err != nil {
+		fmt.Printf("Prompt failed %v\n", err)
+		return
+	}
+
+	fmt.Printf("You choose %q\n", result)
+}
+
+func ChooseActivity() {
+	prompt := promptui.Select{
+		Label:     "Select your daily activity",
+		Templates: nil,
+		Items:     []string{"Sedentary", "Light", "Active", "Very Active"},
+	}
+	_, result, err := prompt.Run()
+
+	if err != nil {
+		fmt.Printf("Prompt failed %v\n", err)
+		return
+	}
+
+	fmt.Printf("You choose %q\n", result)
+}
+
+func ChooseIntensity() {
+	prompt := promptui.Select{
+		Label:     "Select your daily activity",
+		Templates: nil,
+		Items:     []string{"Light", "Moderate", "Difficult", "Intense"},
+	}
+	_, result, err := prompt.Run()
+
+	if err != nil {
+		fmt.Printf("Prompt failed %v\n", err)
+		return
+	}
+
+	fmt.Printf("You choose %q\n", result)
+}
