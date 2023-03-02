@@ -24,7 +24,7 @@ func ChooseSystem() {
 	fmt.Printf("You choose %q\n", result)
 }
 
-func ChooseGender() {
+func ChooseGender() string {
 	prompt := promptui.Select{
 		Label: "Select gender",
 		Items: []string{"male", "female"},
@@ -34,10 +34,12 @@ func ChooseGender() {
 
 	if err != nil {
 		fmt.Printf("Prompt failed %v\n", err)
-		return
+
 	}
 
 	fmt.Printf("You choose %q\n", result)
+
+	return result
 }
 
 func ChooseMeasures(measure string) {
@@ -140,19 +142,22 @@ func ChooseIntensity() {
 /*
 * Women BMR = 655 + (9.6 X weight in kg) + (1.8 x height in cm) – (4.7 x age in yrs)
 * Men BMR = 66 + (13.7 X weight in kg) + (5 x height in cm) – (6.8 x age in yrs)
- */
-func CalculateMenBmr() float64 {
+
+Mifflin-St Jeor Equation FORMULA
+
+*/
+func CalculateBmr() float64 {
 	var age = 34.0
 	var weight, height = 85.0, 185.0
+	var gender = ChooseGender()
+	var s float64
+	fmt.Println("gender", gender)
+	if gender == "male" {
+		s = 5
+	} else {
+		s = -151
+	}
 
-	return 66 + (13.7 * weight) + (5 * height) - (6.8 * age)
-
-}
-
-func CalculateWomanBmr() float64 {
-	var age = 41.0
-	var weight, height = 71.0, 171.0
-
-	return 655 + (9.6 * weight) + (1.8 * height) - (4.7 * age)
+	return (10*weight + 6.25*height - 5.0*age) + s
 
 }
