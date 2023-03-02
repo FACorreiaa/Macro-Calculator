@@ -14,6 +14,10 @@ const Moderately_Active string = "Moderate"
 const Very_Active string = "VeryActive"
 const Extra_Active string = "ExtraActive"
 
+const Maintenance string = "Maintenance"
+const Fat_Loss string = "FatLoss"
+const Bulking string = "Bulking"
+
 // Sedentary (little to no exercise): PAL = 1.2
 // Lightly Active (1-3 days of exercise per week): PAL = 1.375
 // Moderately Active (3-5 days of exercise per week): PAL = 1.55
