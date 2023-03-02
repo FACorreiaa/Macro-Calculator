@@ -24,6 +24,7 @@ func ChooseSystem() {
 	fmt.Printf("You choose %q\n", result)
 }
 
+// used
 func ChooseGender() string {
 	prompt := promptui.Select{
 		Label: "Select gender",
@@ -42,7 +43,8 @@ func ChooseGender() string {
 	return result
 }
 
-func ChooseMeasures(measure string) {
+// used
+func ChooseMeasures(label string) float64 {
 	validate := func(input string) error {
 		_, err := strconv.ParseFloat(input, 64)
 		if err != nil {
@@ -52,7 +54,7 @@ func ChooseMeasures(measure string) {
 	}
 
 	prompt := promptui.Prompt{
-		Label:    measure,
+		Label:    label,
 		Validate: validate,
 	}
 
@@ -60,34 +62,11 @@ func ChooseMeasures(measure string) {
 
 	if err != nil {
 		fmt.Printf("Prompt failed %v\n", err)
-		return
 	}
 
 	fmt.Printf("You choose %q\n", result)
-}
-
-func ChooseAge() {
-	validate := func(input string) error {
-		_, err := strconv.ParseFloat(input, 64)
-		if err != nil {
-			return errors.New("Invalid number")
-		}
-		return nil
-	}
-
-	prompt := promptui.Prompt{
-		Label:    "age",
-		Validate: validate,
-	}
-
-	result, err := prompt.Run()
-
-	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return
-	}
-
-	fmt.Printf("You choose %q\n", result)
+	age, err := strconv.ParseFloat(result, 8)
+	return age
 }
 
 func ChooseFormula() {
@@ -147,9 +126,12 @@ Mifflin-St Jeor Equation FORMULA
 
 */
 func CalculateBmr() float64 {
-	var age = 34.0
-	var weight, height = 85.0, 185.0
+
 	var gender = ChooseGender()
+	var age = ChooseMeasures("Insert age")
+	var weight = ChooseMeasures("Insert weight")
+	var height = ChooseMeasures("Insert height")
+
 	var s float64
 	fmt.Println("gender", gender)
 	if gender == "male" {
@@ -158,6 +140,6 @@ func CalculateBmr() float64 {
 		s = -151
 	}
 
-	return (10*weight + 6.25*height - 5.0*age) + s
+	return (10*weight + 6.25*height - 5.0*(age)) + s
 
 }
