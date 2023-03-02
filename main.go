@@ -42,7 +42,7 @@ func main() {
 	fmt.Println("************************")
 	//tdee.ChooseSystem()
 	//tdee.ChooseGender()
-	result := tdee.CalculateBmr()
+	result := tdee.CalculateTdee()
 	fmt.Println("You calorie intake for yout objective is: ", result)
 	// tdee.ChooseMeasures("height")
 	// tdee.ChooseMeasures("weight")

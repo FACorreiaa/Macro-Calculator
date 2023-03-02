@@ -132,7 +132,7 @@ func chooseCalculationStyle() {
  */
 
 // ADD OPTION TO PICK SIMPLE OR MORE EXTENSE CALCULATION
-func CalculateBmr() float64 {
+func CalculateTdee() float64 {
 	var gender = chooseGender()
 	var age = chooseMeasures("Insert age")
 	var weight = chooseMeasures("Insert weight")
@@ -151,5 +151,4 @@ func CalculateBmr() float64 {
 	}
 
 	return (10*weight + 6.25*height - 5.0*(age)) + ageFactor + (activityValue)
-
 }
