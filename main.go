@@ -29,9 +29,14 @@ func main() {
 	//make separate functions for formulas
 	//make calculations
 	//show values
+
+	//Mifflin-St Jeor Equation
 	fmt.Println("************************")
 	fmt.Println("***** Inspired by: *****")
 	fmt.Println("* https://prophysiquemacros.com/ *")
+
+	fmt.Println("***** Using the formula: *****")
+	fmt.Println("*** Mifflin-St Jeor Equation ***")
 	fmt.Println("***** Give it a try *****")
 	fmt.Println("***** Calculate your macros *****")
 	fmt.Println("************************")
@@ -47,5 +52,4 @@ func main() {
 	// tdee.ChooseActivity()
 	// tdee.ChooseMeasures("How many week days per week do you exercise?")
 	// tdee.ChooseMeasures("How many minutes per day do you exercise (cardio & weight lifting combined)?")
-
 }
