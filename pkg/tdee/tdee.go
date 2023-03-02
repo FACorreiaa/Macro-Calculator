@@ -73,7 +73,12 @@ func chooseMeasures(label string) float64 {
 // used
 func chooseActivity() string {
 	prompt := promptui.Select{
-		Label:     "Select your daily activity",
+		Label: `Select your daily activity:
+		Sedentary: Spend most of the day sitting (e.g. bank taller, desk job)
+		Lightly Activity: Spend a good part of the day on your feet (e.g. teacher, salesman)
+		Active: Spend a good part of the day doing some physical activity (e.g. waitress, mailman)
+		Very Active: Spend most of the day doing heavy physical activity (e.g. bike messenger, carpenter)
+		`,
 		Templates: nil,
 		Items: []string{
 			constants.Sedentary_Activity,
@@ -93,7 +98,7 @@ func chooseActivity() string {
 	return result
 }
 
-func getActivity(label string) float64 {
+func getActivityValues(label string) float64 {
 	mapActivity := make(map[string]int)
 	mapActivity[constants.Sedentary_Activity] = 400
 	mapActivity[constants.Light_Activity] = 800
@@ -102,11 +107,14 @@ func getActivity(label string) float64 {
 	return float64(mapActivity[label])
 }
 
-func chooseIntensity() {
+func chooseCalculationStyle() {
 	prompt := promptui.Select{
-		Label:     "Select your daily activity",
+		Label:     "Select the calculation style",
 		Templates: nil,
-		Items:     []string{"Light", "Moderate", "Difficult", "Intense"},
+		Items: []string{
+			constants.Option_Simple,
+			constants.Option_Advanced,
+		},
 	}
 	_, result, err := prompt.Run()
 
@@ -122,21 +130,26 @@ func chooseIntensity() {
 * https://tdeecalculator.net/
 * Mifflin-St Jeor Equation FORMULA
  */
+
+// ADD OPTION TO PICK SIMPLE OR MORE EXTENSE CALCULATION
 func CalculateBmr() float64 {
 	var gender = chooseGender()
 	var age = chooseMeasures("Insert age")
 	var weight = chooseMeasures("Insert weight")
 	var height = chooseMeasures("Insert height")
+	//var daysPerWeek = chooseMeasures("How many week days per week do you exercise?")
+
 	var activityOption = chooseActivity()
-	var activityValue = getActivity(activityOption)
-	var s float64
+	var activityValue = getActivityValues(activityOption)
+
+	var ageFactor float64
 	fmt.Println("gender", gender)
 	if gender == "male" {
-		s = 5
+		ageFactor = 5
 	} else {
-		s = -151
+		ageFactor = -151
 	}
 
-	return (10*weight + 6.25*height - 5.0*(age)) + s + activityValue
+	return (10*weight + 6.25*height - 5.0*(age)) + ageFactor + (activityValue)
 
 }
