@@ -117,14 +117,10 @@ func ChooseIntensity() {
 	fmt.Printf("You choose %q\n", result)
 }
 
-//https://tdeecalculator.net/
 /*
-* Women BMR = 655 + (9.6 X weight in kg) + (1.8 x height in cm) – (4.7 x age in yrs)
-* Men BMR = 66 + (13.7 X weight in kg) + (5 x height in cm) – (6.8 x age in yrs)
-
-Mifflin-St Jeor Equation FORMULA
-
-*/
+* https://tdeecalculator.net/
+* Mifflin-St Jeor Equation FORMULA
+ */
 func CalculateBmr() float64 {
 
 	var gender = ChooseGender()
