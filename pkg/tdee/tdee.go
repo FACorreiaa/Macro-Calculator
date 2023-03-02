@@ -64,6 +64,30 @@ func ChooseMeasures(measure string) {
 	fmt.Printf("You choose %q\n", result)
 }
 
+func ChooseAge() {
+	validate := func(input string) error {
+		_, err := strconv.ParseFloat(input, 64)
+		if err != nil {
+			return errors.New("Invalid number")
+		}
+		return nil
+	}
+
+	prompt := promptui.Prompt{
+		Label:    "age",
+		Validate: validate,
+	}
+
+	result, err := prompt.Run()
+
+	if err != nil {
+		fmt.Printf("Prompt failed %v\n", err)
+		return
+	}
+
+	fmt.Printf("You choose %q\n", result)
+}
+
 func ChooseFormula() {
 	prompt := promptui.Select{
 		Label:     "Select formula",
@@ -110,4 +134,25 @@ func ChooseIntensity() {
 	}
 
 	fmt.Printf("You choose %q\n", result)
+}
+
+//https://tdeecalculator.net/
+/*
+* Women BMR = 655 + (9.6 X weight in kg) + (1.8 x height in cm) – (4.7 x age in yrs)
+* Men BMR = 66 + (13.7 X weight in kg) + (5 x height in cm) – (6.8 x age in yrs)
+ */
+func CalculateMenBmr() float64 {
+	var age = 34.0
+	var weight, height = 85.0, 185.0
+
+	return 66 + (13.7 * weight) + (5 * height) - (6.8 * age)
+
+}
+
+func CalculateWomanBmr() float64 {
+	var age = 41.0
+	var weight, height = 71.0, 171.0
+
+	return 655 + (9.6 * weight) + (1.8 * height) - (4.7 * age)
+
 }
