@@ -1,6 +1,7 @@
 package tdee
 
 import (
+	"FACorreiaa/Macro-Calculator/constants"
 	"errors"
 	"fmt"
 	"strconv"
@@ -8,7 +9,7 @@ import (
 	"github.com/manifoldco/promptui"
 )
 
-func ChooseSystem() {
+func chooseSystem() {
 	prompt := promptui.Select{
 		Label: "Select Metric",
 		Items: []string{"imperial", "metric"},
@@ -25,7 +26,7 @@ func ChooseSystem() {
 }
 
 // used
-func ChooseGender() string {
+func chooseGender() string {
 	prompt := promptui.Select{
 		Label: "Select gender",
 		Items: []string{"male", "female"},
@@ -44,7 +45,7 @@ func ChooseGender() string {
 }
 
 // used
-func ChooseMeasures(label string) float64 {
+func chooseMeasures(label string) float64 {
 	validate := func(input string) error {
 		_, err := strconv.ParseFloat(input, 64)
 		if err != nil {
@@ -69,39 +70,39 @@ func ChooseMeasures(label string) float64 {
 	return age
 }
 
-func ChooseFormula() {
-	prompt := promptui.Select{
-		Label:     "Select formula",
-		Templates: nil,
-		Items:     []string{"athlete", "lean"},
-	}
-	_, result, err := prompt.Run()
-
-	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return
-	}
-
-	fmt.Printf("You choose %q\n", result)
-}
-
-func ChooseActivity() {
+// used
+func chooseActivity() string {
 	prompt := promptui.Select{
 		Label:     "Select your daily activity",
 		Templates: nil,
-		Items:     []string{"Sedentary", "Light", "Active", "Very Active"},
+		Items: []string{
+			constants.Sedentary_Activity,
+			constants.Light_Activity,
+			constants.Moderate_Activity,
+			constants.Heavy_Activity},
 	}
 	_, result, err := prompt.Run()
 
 	if err != nil {
 		fmt.Printf("Prompt failed %v\n", err)
-		return
+		return ""
 	}
 
 	fmt.Printf("You choose %q\n", result)
+
+	return result
 }
 
-func ChooseIntensity() {
+func getActivity(label string) float64 {
+	mapActivity := make(map[string]int)
+	mapActivity[constants.Sedentary_Activity] = 400
+	mapActivity[constants.Light_Activity] = 800
+	mapActivity[constants.Moderate_Activity] = 1200
+	mapActivity[constants.Heavy_Activity] = 1600
+	return float64(mapActivity[label])
+}
+
+func chooseIntensity() {
 	prompt := promptui.Select{
 		Label:     "Select your daily activity",
 		Templates: nil,
@@ -122,12 +123,12 @@ func ChooseIntensity() {
 * Mifflin-St Jeor Equation FORMULA
  */
 func CalculateBmr() float64 {
-
-	var gender = ChooseGender()
-	var age = ChooseMeasures("Insert age")
-	var weight = ChooseMeasures("Insert weight")
-	var height = ChooseMeasures("Insert height")
-
+	var gender = chooseGender()
+	var age = chooseMeasures("Insert age")
+	var weight = chooseMeasures("Insert weight")
+	var height = chooseMeasures("Insert height")
+	var activityOption = chooseActivity()
+	var activityValue = getActivity(activityOption)
 	var s float64
 	fmt.Println("gender", gender)
 	if gender == "male" {
@@ -136,6 +137,6 @@ func CalculateBmr() float64 {
 		s = -151
 	}
 
-	return (10*weight + 6.25*height - 5.0*(age)) + s
+	return (10*weight + 6.25*height - 5.0*(age)) + s + activityValue
 
 }
