@@ -1,4 +1,4 @@
-package goals
+package plan
 
 import (
 	"FACorreiaa/Macro-Calculator/constants"
@@ -34,7 +34,7 @@ func chooseCalorieDistribution() string {
 	return result
 }
 
-func calculateMacroNutrients() (float64, float64, float64) {
+func CalculateMacroNutrients() (float64, float64, float64) {
 	//calculate based on option
 
 	var calorieDistributionOption = chooseCalorieDistribution()

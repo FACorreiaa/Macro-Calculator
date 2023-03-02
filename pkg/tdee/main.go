@@ -150,5 +150,6 @@ func CalculateTdee() float64 {
 		ageFactor = -151
 	}
 
-	return (10*weight + 6.25*height - 5.0*(age)) + ageFactor + (activityValue)
+	result := (10*weight + 6.25*height - 5.0*(age)) + ageFactor + (activityValue)
+	return result
 }
