@@ -29,5 +29,4 @@ func main() {
 	fmt.Printf("Protein %.2f\n", protein)
 	fmt.Printf("Fats %.2f\n", fats)
 	fmt.Printf("Carbs %.2f\n", carbs)
-
 }
