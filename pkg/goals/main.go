@@ -10,11 +10,11 @@ import (
 
 func calculateGoals(tdee float64) (float64, float64, float64) {
 
-	var fatLoss = tdee - 500
-	var bulk = tdee + 500
-	fmt.Printf("Your calories on cut are: %.2f\n", fatLoss)
-	fmt.Printf("Your calories on bulk are: %.2f\n", bulk)
-	fmt.Printf("Your calories on maintenance are: %.2f\n", tdee)
+	var fatLoss = tdee - constants.Caloric_Deficit
+	var bulk = tdee + constants.Caloric_Excedent
+	fmt.Printf("Your calorie intake on cut are: %.2f\n", fatLoss)
+	fmt.Printf("Your calorie intake on bulk are: %.2f\n", bulk)
+	fmt.Printf("Your calorie intake on maintenance are: %.2f\n", tdee)
 
 	return fatLoss, tdee, bulk
 }

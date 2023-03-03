@@ -4,6 +4,4 @@
 
 # Work in Progress
 
-- Improve the menu text explanations
-- Improve the menu styles
 - Refactor code

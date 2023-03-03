@@ -3,6 +3,9 @@ package constants
 const Option_Simple string = "simple"
 const Option_Advanced string = "advanced"
 
+const Caloric_Deficit float64 = 450
+const Caloric_Excedent float64 = 350
+
 const Sedentary_Activity string = "Sedentary"
 const Light_Activity string = "Light"
 const Moderate_Activity string = "Moderate"

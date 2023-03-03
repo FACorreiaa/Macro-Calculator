@@ -11,8 +11,8 @@ import (
 func PickOption() string {
 	prompt := promptui.Select{
 		Label: `Select your weight goal:
-		- Simple
-		- Advanced;
+		- Simple (only see basic TDEE with objective)
+		- Advanced (get values of protein, carbs and fats detailed);
 		`,
 		Templates: nil,
 		Items: []string{
