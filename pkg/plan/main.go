@@ -2,7 +2,6 @@ package plan
 
 import (
 	"FACorreiaa/Macro-Calculator/constants"
-	"FACorreiaa/Macro-Calculator/pkg/goals"
 	"fmt"
 
 	"github.com/manifoldco/promptui"
@@ -34,29 +33,32 @@ func chooseCalorieDistribution() string {
 	return result
 }
 
-func CalculateMacroNutrients() (float64, float64, float64) {
+func calculateMacroDistribution(calorieFactor float64, calorieGoal float64, caloriesPerGram int) float64 {
+	return (calorieFactor * calorieGoal) / float64(caloriesPerGram)
+}
+
+func CalculateMacroNutrients(calorieGoal float64) (float64, float64, float64) {
 	//calculate based on option
 
 	var calorieDistributionOption = chooseCalorieDistribution()
-	var calorieGoal = goals.GetGoal()
 	if calorieDistributionOption == constants.High_Carb {
-		protein := 0.3 * calorieGoal
-		fats := 0.2 * calorieGoal
-		carbs := 0.5 * calorieGoal
+		protein := calculateMacroDistribution(0.3, calorieGoal, 4)
+		fats := calculateMacroDistribution(0.2, calorieGoal, 9)
+		carbs := calculateMacroDistribution(0.5, calorieGoal, 4)
 		return protein, fats, carbs
 	}
 
 	if calorieDistributionOption == constants.Moderate_Carb {
-		protein := 0.3 * calorieGoal
-		fats := 0.35 * calorieGoal
-		carbs := 0.35 * calorieGoal
+		protein := calculateMacroDistribution(0.3, calorieGoal, 4)
+		fats := calculateMacroDistribution(0.35, calorieGoal, 9)
+		carbs := calculateMacroDistribution(0.35, calorieGoal, 4)
 		return protein, fats, carbs
 	}
 
 	if calorieDistributionOption == constants.Low_Carb {
-		protein := 0.4 * calorieGoal
-		fats := 0.4 * calorieGoal
-		carbs := 0.2 * calorieGoal
+		protein := calculateMacroDistribution(0.4, calorieGoal, 4)
+		fats := calculateMacroDistribution(0.4, calorieGoal, 9)
+		carbs := calculateMacroDistribution(0.2, calorieGoal, 4)
 		return protein, fats, carbs
 	}
 	return 0, 0, 0

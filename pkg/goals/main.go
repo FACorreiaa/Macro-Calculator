@@ -2,7 +2,6 @@ package goals
 
 import (
 	"FACorreiaa/Macro-Calculator/constants"
-	"FACorreiaa/Macro-Calculator/pkg/tdee"
 
 	"fmt"
 
@@ -13,15 +12,15 @@ import (
 //cut
 //bulk
 
-func calculateGoals() (float64, float64, float64) {
-	var tdeeValue = tdee.CalculateTdee()
-	var fatLoss = tdeeValue - 500
-	var bulk = tdeeValue + 500
-	println("Your calories on cut are: ", fatLoss)
-	println("Your calories on bulk are: ", bulk)
-	println("Your calories on maintenance are: ", tdeeValue)
+func calculateGoals(tdee float64) (float64, float64, float64) {
 
-	return fatLoss, tdeeValue, bulk
+	var fatLoss = tdee - 500
+	var bulk = tdee + 500
+	fmt.Printf("Your calories on cut are: %.2f\n", fatLoss)
+	fmt.Printf("Your calories on bulk are: %.2f\n", bulk)
+	fmt.Printf("Your calories on maintenance are: %.2f\n", tdee)
+
+	return fatLoss, tdee, bulk
 }
 
 func chooseGoal() string {
@@ -50,9 +49,9 @@ func chooseGoal() string {
 	return result
 }
 
-func GetGoal() float64 {
+func GetGoal(tdee float64) float64 {
 	var option = chooseGoal()
-	var fatloss, maintenance, bulk = calculateGoals()
+	var fatloss, maintenance, bulk = calculateGoals(tdee)
 	mapGoals := make(map[string]float64)
 	mapGoals[constants.Maintenance] = maintenance
 	mapGoals[constants.Fat_Loss] = fatloss

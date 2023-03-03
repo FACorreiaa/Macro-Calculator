@@ -2,7 +2,9 @@ package main
 
 import (
 	"FACorreiaa/Macro-Calculator/pkg/goals"
+	"FACorreiaa/Macro-Calculator/pkg/plan"
 	"FACorreiaa/Macro-Calculator/pkg/tdee"
+
 	"fmt"
 )
 
@@ -20,7 +22,12 @@ func main() {
 	fmt.Println("***** Calculate your macros *****")
 	fmt.Println("************************")
 	tdee := tdee.CalculateTdee()
-	fmt.Printf("Your TDEE is %f\n", tdee)
-	goal := goals.GetGoal()
-	fmt.Printf("Your goal is %f\n", goal)
+	fmt.Printf("Your TDEE is %.2f\n", tdee)
+	goal := goals.GetGoal(tdee)
+	fmt.Printf("Your goal is %.2f\n", goal)
+	protein, fats, carbs := plan.CalculateMacroNutrients(goal)
+	fmt.Printf("Protein %.2f\n", protein)
+	fmt.Printf("Fats %.2f\n", fats)
+	fmt.Printf("Carbs %.2f\n", carbs)
+
 }
