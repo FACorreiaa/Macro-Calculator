@@ -25,6 +25,7 @@ func chooseSystem() {
 	fmt.Printf("You choose %q\n", result)
 }
 
+// MODIFY
 func chooseGender() string {
 	prompt := promptui.Select{
 		Label: "Select gender",
@@ -64,8 +65,8 @@ func chooseMeasures(label string) float64 {
 	}
 
 	fmt.Printf("You choose %q\n", result)
-	age, err := strconv.ParseFloat(result, 8)
-	return age
+	data, err := strconv.ParseFloat(result, 8)
+	return data
 }
 
 func chooseActivity() string {
@@ -106,8 +107,7 @@ func getActivityValues(label string) float64 {
 
 func chooseCalculationStyle() {
 	prompt := promptui.Select{
-		Label:     "Select the calculation style",
-		Templates: nil,
+		Label: "Select the calculation style",
 		Items: []string{
 			constants.Option_Simple,
 			constants.Option_Advanced,
@@ -123,11 +123,45 @@ func chooseCalculationStyle() {
 	fmt.Printf("You choose %q\n", result)
 }
 
+// MODIFY
 func CalculateTdee() float64 {
 	var gender = chooseGender()
-	var age = chooseMeasures("Insert age")
-	var weight = chooseMeasures("Insert weight")
-	var height = chooseMeasures("Insert height")
+	validate := func(input string) error {
+		_, err := strconv.ParseFloat(input, 64)
+		if err != nil {
+			return errors.New("Invalid number")
+		}
+		return nil
+	}
+
+	// Store age, weight, and height using chooseMeasures()
+	var age, weight, height float64
+	agePrompt := promptui.Prompt{
+		Label:    "Insert age",
+		Validate: validate,
+	}
+	ageStr, err := agePrompt.Run()
+	if err == nil {
+		age, _ = strconv.ParseFloat(ageStr, 64)
+	}
+
+	weightPrompt := promptui.Prompt{
+		Label:    "Insert weight",
+		Validate: validate,
+	}
+	weightStr, err := weightPrompt.Run()
+	if err == nil {
+		weight, _ = strconv.ParseFloat(weightStr, 64)
+	}
+
+	heightPrompt := promptui.Prompt{
+		Label:    "Insert height",
+		Validate: validate,
+	}
+	heightStr, err := heightPrompt.Run()
+	if err == nil {
+		height, _ = strconv.ParseFloat(heightStr, 64)
+	}
 
 	var activityOption = chooseActivity()
 	var activityValue = getActivityValues(activityOption)
