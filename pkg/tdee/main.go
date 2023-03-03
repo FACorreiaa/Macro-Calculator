@@ -25,7 +25,6 @@ func chooseSystem() {
 	fmt.Printf("You choose %q\n", result)
 }
 
-// used
 func chooseGender() string {
 	prompt := promptui.Select{
 		Label: "Select gender",
@@ -44,7 +43,6 @@ func chooseGender() string {
 	return result
 }
 
-// used
 func chooseMeasures(label string) float64 {
 	validate := func(input string) error {
 		_, err := strconv.ParseFloat(input, 64)
@@ -70,7 +68,6 @@ func chooseMeasures(label string) float64 {
 	return age
 }
 
-// used
 func chooseActivity() string {
 	prompt := promptui.Select{
 		Label: `Select your daily activity:
@@ -126,18 +123,11 @@ func chooseCalculationStyle() {
 	fmt.Printf("You choose %q\n", result)
 }
 
-/*
-* https://tdeecalculator.net/
-* Mifflin-St Jeor Equation FORMULA
- */
-
-// ADD OPTION TO PICK SIMPLE OR MORE EXTENSE CALCULATION
 func CalculateTdee() float64 {
 	var gender = chooseGender()
 	var age = chooseMeasures("Insert age")
 	var weight = chooseMeasures("Insert weight")
 	var height = chooseMeasures("Insert height")
-	//var daysPerWeek = chooseMeasures("How many week days per week do you exercise?")
 
 	var activityOption = chooseActivity()
 	var activityValue = getActivityValues(activityOption)

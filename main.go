@@ -9,9 +9,6 @@ import (
 )
 
 func main() {
-	//info and formula from:
-	//https://prophysiquemacros.com/
-	//Mifflin-St Jeor Equation
 	fmt.Println("************************")
 	fmt.Println("***** Inspired by: *****")
 	fmt.Println("* https://prophysiquemacros.com/ *")

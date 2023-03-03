@@ -8,10 +8,6 @@ import (
 	"github.com/manifoldco/promptui"
 )
 
-//maintenance
-//cut
-//bulk
-
 func calculateGoals(tdee float64) (float64, float64, float64) {
 
 	var fatLoss = tdee - 500
