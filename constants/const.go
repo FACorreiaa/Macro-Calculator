@@ -2,7 +2,8 @@ package constants
 
 const Option_Simple string = "simple"
 const Option_Advanced string = "advanced"
-
+const Metric string = "metric"
+const Imperial string = "imperial"
 const Insert_Age string = "Insert age"
 
 const Sedentary_Activity string = "Sedentary"

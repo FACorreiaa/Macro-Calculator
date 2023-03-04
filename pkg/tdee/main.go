@@ -124,8 +124,8 @@ func calculateTDEE(bmr float64, activityValue float64) float64 {
 func CalculateTdee() float64 {
 	userData := UserData{}
 
-	var metricOptions = []string{"metric", "imperial"}
-	var metric = menu.GetSelectMenu("Select Metric System", metricOptions)
+	var metricOptions = []string{constants.Metric, constants.Imperial}
+	var metric = menu.GetSelectMenu("Select Measure System", metricOptions)
 	userData.Metric = metric
 	var gender = chooseGender()
 	age, err := menu.GetInputPrompt("Insert age")
