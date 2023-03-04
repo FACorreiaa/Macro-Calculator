@@ -19,7 +19,7 @@ type Select struct {
 	items []string
 }
 
-func CustomInputMenu(i Input) float64 {
+func GetInputPrompt(label string) (float64, error) {
 	validate := func(input string) error {
 		_, err := strconv.ParseFloat(input, 64)
 		if err != nil {
@@ -29,19 +29,21 @@ func CustomInputMenu(i Input) float64 {
 	}
 
 	prompt := promptui.Prompt{
-		Label:    i.label,
+		Label:    label,
 		Validate: validate,
 	}
 
 	result, err := prompt.Run()
-
 	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
+		return 0, err
 	}
 
-	fmt.Printf("You choose %q\n", result)
 	data, err := strconv.ParseFloat(result, 8)
-	return data
+	if err != nil {
+		return 0, err
+	}
+
+	return data, nil
 }
 
 func CustomSelectMenu(s Select) {

@@ -2,11 +2,31 @@ package tdee
 
 import (
 	"FACorreiaa/Macro-Calculator/constants"
+	"FACorreiaa/Macro-Calculator/pkg/menu"
+
 	"errors"
 	"fmt"
 	"strconv"
 
 	"github.com/manifoldco/promptui"
+)
+
+type UserData struct {
+	Age    float64
+	Weight float64
+	Height float64
+}
+
+const (
+	maleAgeFactor   = 5
+	femaleAgeFactor = -151
+)
+
+var (
+	sedentaryActivity = 400
+	lightActivity     = 800
+	moderateActivity  = 1200
+	heavyActivity     = 1600
 )
 
 func chooseSystem() {
@@ -98,10 +118,10 @@ func chooseActivity() string {
 
 func getActivityValues(label string) float64 {
 	mapActivity := make(map[string]int)
-	mapActivity[constants.Sedentary_Activity] = 400
-	mapActivity[constants.Light_Activity] = 800
-	mapActivity[constants.Moderate_Activity] = 1200
-	mapActivity[constants.Heavy_Activity] = 1600
+	mapActivity[constants.Sedentary_Activity] = sedentaryActivity
+	mapActivity[constants.Light_Activity] = lightActivity
+	mapActivity[constants.Moderate_Activity] = moderateActivity
+	mapActivity[constants.Heavy_Activity] = heavyActivity
 	return float64(mapActivity[label])
 }
 
@@ -126,52 +146,33 @@ func chooseCalculationStyle() {
 // MODIFY
 func CalculateTdee() float64 {
 	var gender = chooseGender()
-	validate := func(input string) error {
-		_, err := strconv.ParseFloat(input, 64)
-		if err != nil {
-			return errors.New("Invalid number")
-		}
-		return nil
+	userData := UserData{}
+	age, err := menu.GetInputPrompt("Insert age")
+	if err != nil {
+		// handle error
 	}
+	userData.Age = age
 
-	// Store age, weight, and height using chooseMeasures()
-	var age, weight, height float64
-	agePrompt := promptui.Prompt{
-		Label:    "Insert age",
-		Validate: validate,
+	weight, err := menu.GetInputPrompt("Insert weight")
+	if err != nil {
+		// handle error
 	}
-	ageStr, err := agePrompt.Run()
-	if err == nil {
-		age, _ = strconv.ParseFloat(ageStr, 64)
-	}
+	userData.Weight = weight
 
-	weightPrompt := promptui.Prompt{
-		Label:    "Insert weight",
-		Validate: validate,
+	height, err := menu.GetInputPrompt("Insert height")
+	if err != nil {
+		// handle error
 	}
-	weightStr, err := weightPrompt.Run()
-	if err == nil {
-		weight, _ = strconv.ParseFloat(weightStr, 64)
-	}
-
-	heightPrompt := promptui.Prompt{
-		Label:    "Insert height",
-		Validate: validate,
-	}
-	heightStr, err := heightPrompt.Run()
-	if err == nil {
-		height, _ = strconv.ParseFloat(heightStr, 64)
-	}
-
+	userData.Height = height
 	var activityOption = chooseActivity()
 	var activityValue = getActivityValues(activityOption)
 
 	var ageFactor float64
 	fmt.Println("gender", gender)
 	if gender == "male" {
-		ageFactor = 5
+		ageFactor = maleAgeFactor
 	} else {
-		ageFactor = -151
+		ageFactor = femaleAgeFactor
 	}
 
 	result := (10*weight + 6.25*height - 5.0*(age)) + ageFactor + (activityValue)

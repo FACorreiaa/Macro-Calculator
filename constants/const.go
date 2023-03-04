@@ -1,10 +1,16 @@
 package constants
 
+// we skipped using this formula
+var (
+	sedentaryActivityValue   = 1.2
+	lightActivityValue       = 1.375
+	moderateActivityValue    = 1.55
+	veryActiveActivityValue  = 1.725
+	extraActiveActivityValue = 1.9
+)
+
 const Option_Simple string = "simple"
 const Option_Advanced string = "advanced"
-
-const Caloric_Deficit float64 = 450
-const Caloric_Excedent float64 = 350
 
 const Insert_Age string = "Insert age"
 const Sedentary_Activity string = "Sedentary"

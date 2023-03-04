@@ -8,10 +8,15 @@ import (
 	"github.com/manifoldco/promptui"
 )
 
+var (
+	caloricDeficit  = 450.0
+	caloricExcedent = 350.0
+)
+
 func calculateGoals(tdee float64) (float64, float64, float64) {
 
-	var fatLoss = tdee - constants.Caloric_Deficit
-	var bulk = tdee + constants.Caloric_Excedent
+	var fatLoss = tdee - caloricDeficit
+	var bulk = tdee + caloricExcedent
 	fmt.Printf("Your calorie intake on cut are: %.2f\n", fatLoss)
 	fmt.Printf("Your calorie intake on bulk are: %.2f\n", bulk)
 	fmt.Printf("Your calorie intake on maintenance are: %.2f\n", tdee)
