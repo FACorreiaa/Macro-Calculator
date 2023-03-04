@@ -157,43 +157,5 @@ func CalculateTdee() (float64, UserData, string, Units) {
 	var unit = GetCorrectUnitSystem(UserData.Metric)
 	Unit.Height = unit.Height
 	Unit.Weight = unit.Weight
-	//goal := goals.GetGoal(tdee)
-	//macros := plan.CalculateMacroNutrients(goal)
 	return tdee, UserData, activityDescription, Unit
 }
-
-// func MainMenu() {
-// 	var activityOptions = []string{
-// 		constants.Sedentary_Activity,
-// 		constants.Light_Activity,
-// 		constants.Moderate_Activity,
-// 		constants.Heavy_Activity,
-// 		constants.Extra_Heavy_Activity,
-// 	}
-
-// 	var metricOptions = []string{
-// 		constants.Metric, constants.Imperial,
-// 	}
-// 	var metric = menu.GetSelectMenu(constants.Question_Select_Measure, metricOptions)
-
-// 	UserData := UserData{}
-
-// 	unit := getCorrectUnitSystem(metric)
-// 	tdee := CalculateTdee()
-// 	goal := goals.GetGoal(tdee)
-// 	macros := plan.CalculateMacroNutrients(goal)
-// 	var activityOption = menu.GetSelectMenu(constants.Question_Select_Activity, activityOptions)
-
-// 	activityDescription := getActivityExpplanation(activityOption)
-// 	println("****************************************************************************")
-// 	log.Printf("\n*Age: %.1f Height: %.1f %s Weight: %.1f %s Gender: %s*\n", UserData.Age,
-// 		UserData.Height, unit.Height,
-// 		UserData.Weight, unit.Weight,
-// 		UserData.Gender)
-// 	fmt.Printf("*Your TDEE is %.2f*\n", tdee)
-// 	fmt.Printf("*Your goal is %.2f*\n", goal)
-// 	fmt.Printf("*Based on your TDEE and your goal, your macro distributions are: *\n")
-// 	fmt.Printf("\nProtein %.2f: Fats:  %.2f Carbs %.2f\n", macros.Protein, macros.Fats, macros.Carbs)
-// 	fmt.Printf("*activityDescription %s: \n", activityDescription)
-// 	println("****************************************************************************")
-// }

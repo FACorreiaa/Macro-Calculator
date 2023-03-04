@@ -9,20 +9,9 @@ import (
 )
 
 func main() {
-
-	// var activityOptions = []string{
-	// 	constants.Sedentary_Activity,
-	// 	constants.Light_Activity,
-	// 	constants.Moderate_Activity,
-	// 	constants.Heavy_Activity,
-	// 	constants.Extra_Heavy_Activity,
-	// }
 	tdee, UserData, activityDescription, Unit := tdee.CalculateTdee()
 	goal := goals.GetGoal(tdee)
 	macros := plan.CalculateMacroNutrients(goal)
-	// var activityOption = menu.GetSelectMenu(constants.Question_Select_Activity, activityOptions)
-
-	// activityDescription := tdee.GetActivityExpplanation(activityOption)
 	fmt.Println("************************")
 	fmt.Println("***** Inspired by: *****")
 	fmt.Println("* https://prophysiquemacros.com/ *")
