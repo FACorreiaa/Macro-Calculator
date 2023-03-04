@@ -22,10 +22,10 @@ func advancedMenu() {
 	fmt.Printf("Your TDEE is %.2f\n", tdee)
 	goal := goals.GetGoal(tdee)
 	fmt.Printf("Your goal is %.2f\n", goal)
-	protein, fats, carbs := plan.CalculateMacroNutrients(goal)
-	fmt.Printf("Protein %.2f\n", protein)
-	fmt.Printf("Fats %.2f\n", fats)
-	fmt.Printf("Carbs %.2f\n", carbs)
+	macros := plan.CalculateMacroNutrients(goal)
+	fmt.Printf("Protein %.2f\n", macros.Protein)
+	fmt.Printf("Fats %.2f\n", macros.Fats)
+	fmt.Printf("Carbs %.2f\n", macros.Carbs)
 }
 func main() {
 	fmt.Println("************************")

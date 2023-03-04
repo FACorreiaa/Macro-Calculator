@@ -41,6 +41,7 @@ func GetSelectMenu(label string, options []string) string {
 	prompt := promptui.Select{
 		Label: label,
 		Items: options,
+		Size:  5,
 	}
 
 	_, result, err := prompt.Run()

@@ -31,7 +31,7 @@ var (
 )
 
 func convertWeight(value float64, data UserData) float64 {
-	if data.Metric == "metric" {
+	if data.Metric == constants.Metric {
 		return value
 	} else {
 		return value * 0.453592 // 1 lb = 0.453592 kg
@@ -39,7 +39,7 @@ func convertWeight(value float64, data UserData) float64 {
 }
 
 func convertHeight(value float64, data UserData) float64 {
-	if data.Metric == "metric" {
+	if data.Metric == constants.Metric {
 		return value
 	} else {
 		return value * 2.54 // 1 in = 2.54 cm
@@ -48,8 +48,8 @@ func convertHeight(value float64, data UserData) float64 {
 
 func chooseGender() string {
 	prompt := promptui.Select{
-		Label: "Select gender",
-		Items: []string{"male", "female"},
+		Label: constants.Question_Select_Gender,
+		Items: []string{constants.Male, constants.Female},
 	}
 
 	_, result, err := prompt.Run()
@@ -57,33 +57,6 @@ func chooseGender() string {
 	if err != nil {
 		fmt.Printf("Prompt failed %v\n", err)
 
-	}
-
-	fmt.Printf("You choose %q\n", result)
-
-	return result
-}
-
-func chooseActivity() string {
-	prompt := promptui.Select{
-		Label: `Select your daily activity:
-		Sedentary: Spend most of the day sitting (e.g. bank taller, desk job)
-		Lightly Activity: Spend a good part of the day on your feet (e.g. teacher, salesman)
-		Active: Spend a good part of the day doing some physical activity (e.g. waitress, mailman)
-		Very Active: Spend most of the day doing heavy physical activity (e.g. bike messenger, carpenter)
-		`,
-		Templates: nil,
-		Items: []string{
-			constants.Sedentary_Activity,
-			constants.Light_Activity,
-			constants.Moderate_Activity,
-			constants.Heavy_Activity},
-	}
-	_, result, err := prompt.Run()
-
-	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return ""
 	}
 
 	fmt.Printf("You choose %q\n", result)
@@ -124,28 +97,37 @@ func calculateTDEE(bmr float64, activityValue float64) float64 {
 func CalculateTdee() float64 {
 	userData := UserData{}
 
-	var metricOptions = []string{constants.Metric, constants.Imperial}
-	var metric = menu.GetSelectMenu("Select Measure System", metricOptions)
+	var metricOptions = []string{
+		constants.Metric, constants.Imperial,
+	}
+	var activityOptions = []string{
+		constants.Sedentary_Activity,
+		constants.Light_Activity,
+		constants.Moderate_Activity,
+		constants.Heavy_Activity,
+		constants.Extra_Heavy_Activity,
+	}
+	var metric = menu.GetSelectMenu(constants.Question_Select_Measure, metricOptions)
 	userData.Metric = metric
 	var gender = chooseGender()
-	age, err := menu.GetInputPrompt("Insert age")
+	age, err := menu.GetInputPrompt(constants.Question_Insert_Age)
 	if err != nil {
 		log.Fatal(err)
 	}
 	userData.Age = age
 
-	weight, err := menu.GetInputPrompt("Insert weight")
+	weight, err := menu.GetInputPrompt(constants.Question_Insert_Weight)
 	if err != nil {
 		log.Fatal(err)
 	}
 	userData.Weight = convertWeight(weight, userData)
 
-	height, err := menu.GetInputPrompt("Insert height")
+	height, err := menu.GetInputPrompt(constants.Question_Insert_Height)
 	if err != nil {
 		log.Fatal(err)
 	}
 	userData.Height = convertHeight(height, userData)
-	var activityOption = chooseActivity()
+	var activityOption = menu.GetSelectMenu(constants.Question_Select_Activity, activityOptions)
 	var bmr = calculateBMR(userData, gender)
 	var activityValue = getActivityValues(activityOption)
 	var tdee = calculateTDEE(bmr, activityValue)
