@@ -124,7 +124,6 @@ func getActivityValues(label string) float64 {
 	mapActivity[constants.Moderate_Activity] = moderateActivityValue
 	mapActivity[constants.Heavy_Activity] = veryActiveActivityValue
 	mapActivity[constants.Extra_Heavy_Activity] = extraActiveActivityValue
-
 	return float64(mapActivity[label])
 }
 
