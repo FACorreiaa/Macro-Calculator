@@ -23,10 +23,11 @@ const (
 )
 
 var (
-	sedentaryActivity = 400
-	lightActivity     = 800
-	moderateActivity  = 1200
-	heavyActivity     = 1600
+	sedentaryActivityValue   = 1.2
+	lightActivityValue       = 1.375
+	moderateActivityValue    = 1.55
+	veryActiveActivityValue  = 1.725
+	extraActiveActivityValue = 1.9
 )
 
 func chooseSystem() {
@@ -117,11 +118,13 @@ func chooseActivity() string {
 }
 
 func getActivityValues(label string) float64 {
-	mapActivity := make(map[string]int)
-	mapActivity[constants.Sedentary_Activity] = sedentaryActivity
-	mapActivity[constants.Light_Activity] = lightActivity
-	mapActivity[constants.Moderate_Activity] = moderateActivity
-	mapActivity[constants.Heavy_Activity] = heavyActivity
+	mapActivity := make(map[string]float64)
+	mapActivity[constants.Sedentary_Activity] = sedentaryActivityValue
+	mapActivity[constants.Light_Activity] = lightActivityValue
+	mapActivity[constants.Moderate_Activity] = moderateActivityValue
+	mapActivity[constants.Heavy_Activity] = veryActiveActivityValue
+	mapActivity[constants.Extra_Heavy_Activity] = extraActiveActivityValue
+
 	return float64(mapActivity[label])
 }
 
@@ -143,7 +146,21 @@ func chooseCalculationStyle() {
 	fmt.Printf("You choose %q\n", result)
 }
 
-// MODIFY
+func calculateBMR(userData UserData, gender string) float64 {
+	var ageFactor float64
+	if gender == "male" {
+		ageFactor = maleAgeFactor
+	} else {
+		ageFactor = femaleAgeFactor
+	}
+
+	return (10*userData.Weight + 6.25*userData.Height - 5.0*(userData.Age)) + ageFactor
+}
+
+func calculateTDEE(bmr float64, activityValue float64) float64 {
+	return bmr * activityValue
+}
+
 func CalculateTdee() float64 {
 	var gender = chooseGender()
 	userData := UserData{}
@@ -165,16 +182,8 @@ func CalculateTdee() float64 {
 	}
 	userData.Height = height
 	var activityOption = chooseActivity()
+	var bmr = calculateBMR(userData, gender)
 	var activityValue = getActivityValues(activityOption)
-
-	var ageFactor float64
-	fmt.Println("gender", gender)
-	if gender == "male" {
-		ageFactor = maleAgeFactor
-	} else {
-		ageFactor = femaleAgeFactor
-	}
-
-	result := (10*weight + 6.25*height - 5.0*(age)) + ageFactor + (activityValue)
-	return result
+	var tdee = calculateTDEE(bmr, activityValue)
+	return tdee
 }

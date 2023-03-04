@@ -1,22 +1,15 @@
 package constants
 
-// we skipped using this formula
-var (
-	sedentaryActivityValue   = 1.2
-	lightActivityValue       = 1.375
-	moderateActivityValue    = 1.55
-	veryActiveActivityValue  = 1.725
-	extraActiveActivityValue = 1.9
-)
-
 const Option_Simple string = "simple"
 const Option_Advanced string = "advanced"
 
 const Insert_Age string = "Insert age"
+
 const Sedentary_Activity string = "Sedentary"
 const Light_Activity string = "Light"
 const Moderate_Activity string = "Moderate"
 const Heavy_Activity string = "Heavy"
+const Extra_Heavy_Activity string = "Extra Heavy"
 
 const Sedentary string = "Sedentary"
 const Lightly_Active string = "Light"
