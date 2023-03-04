@@ -1,33 +1,28 @@
 package main
 
 import (
-	"FACorreiaa/Macro-Calculator/constants"
 	"FACorreiaa/Macro-Calculator/pkg/goals"
-	"FACorreiaa/Macro-Calculator/pkg/menu"
 	"FACorreiaa/Macro-Calculator/pkg/plan"
 	"FACorreiaa/Macro-Calculator/pkg/tdee"
-
 	"fmt"
+	"log"
 )
 
-func simpleMenu() {
-	tdee := tdee.CalculateTdee()
-	fmt.Printf("Your TDEE is %.2f\n", tdee)
-	goal := goals.GetGoal(tdee)
-	fmt.Printf("Your goal is %.2f\n", goal)
-}
-
-func advancedMenu() {
-	tdee := tdee.CalculateTdee()
-	fmt.Printf("Your TDEE is %.2f\n", tdee)
-	goal := goals.GetGoal(tdee)
-	fmt.Printf("Your goal is %.2f\n", goal)
-	macros := plan.CalculateMacroNutrients(goal)
-	fmt.Printf("Protein %.2f\n", macros.Protein)
-	fmt.Printf("Fats %.2f\n", macros.Fats)
-	fmt.Printf("Carbs %.2f\n", macros.Carbs)
-}
 func main() {
+
+	// var activityOptions = []string{
+	// 	constants.Sedentary_Activity,
+	// 	constants.Light_Activity,
+	// 	constants.Moderate_Activity,
+	// 	constants.Heavy_Activity,
+	// 	constants.Extra_Heavy_Activity,
+	// }
+	tdee, UserData, activityDescription, Unit := tdee.CalculateTdee()
+	goal := goals.GetGoal(tdee)
+	macros := plan.CalculateMacroNutrients(goal)
+	// var activityOption = menu.GetSelectMenu(constants.Question_Select_Activity, activityOptions)
+
+	// activityDescription := tdee.GetActivityExpplanation(activityOption)
 	fmt.Println("************************")
 	fmt.Println("***** Inspired by: *****")
 	fmt.Println("* https://prophysiquemacros.com/ *")
@@ -37,11 +32,17 @@ func main() {
 	fmt.Println("***** Give it a try *****")
 	fmt.Println("***** Calculate your macros *****")
 	fmt.Println("************************")
-	option := menu.PickOption()
-	if option == constants.Option_Simple {
-		simpleMenu()
-	} else {
-		advancedMenu()
-	}
+	println("****************************************************************************")
+	log.Printf("\n*Age: %.1f Height:%.1f %s Weight:%.1f %s Gender: %s*\n", UserData.Age,
+		UserData.Height, Unit.Height,
+		UserData.Weight, Unit.Weight,
+		UserData.Gender)
+	fmt.Printf("*Your TDEE is %.2f*\n", tdee)
+	fmt.Printf("*Your goal is %.2f*\n", goal)
+	fmt.Printf("*Your activity Description %s \n", activityDescription)
+
+	fmt.Printf("*Based on your TDEE and your goal, your macro distributions are: *\n")
+	fmt.Printf("\nProtein %.2f: Fats:  %.2f Carbs %.2f\n", macros.Protein, macros.Fats, macros.Carbs)
+	println("****************************************************************************")
 
 }

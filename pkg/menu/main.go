@@ -42,6 +42,12 @@ func GetSelectMenu(label string, options []string) string {
 		Label: label,
 		Items: options,
 		Size:  5,
+		Templates: &promptui.SelectTemplates{
+			Label:    "{{ . }}?",
+			Active:   "\U0001F336 {{ . | cyan }}",
+			Inactive: "  {{ . | faint }}",
+			Selected: "\U0001F336 {{ . | red | bold }}",
+		},
 	}
 
 	_, result, err := prompt.Run()
