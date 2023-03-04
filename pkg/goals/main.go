@@ -2,10 +2,9 @@ package goals
 
 import (
 	"FACorreiaa/Macro-Calculator/constants"
+	"FACorreiaa/Macro-Calculator/pkg/menu"
 
 	"fmt"
-
-	"github.com/manifoldco/promptui"
 )
 
 var (
@@ -24,34 +23,13 @@ func calculateGoals(tdee float64) (float64, float64, float64) {
 	return fatLoss, tdee, bulk
 }
 
-func chooseGoal() string {
-	prompt := promptui.Select{
-		Label: `Select your weight goal:
-		- Maintenance;
-		- Bulking;
-		- FatLoss;
-		`,
-		Templates: nil,
-		Items: []string{
-			constants.Maintenance,
-			constants.Bulking,
-			constants.Fat_Loss,
-		},
-	}
-	_, result, err := prompt.Run()
-
-	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return ""
-	}
-
-	fmt.Printf("You choose %q\n", result)
-
-	return result
-}
-
 func GetGoal(tdee float64) float64 {
-	var option = chooseGoal()
+	var goal = []string{
+		constants.Maintenance,
+		constants.Bulking,
+		constants.Fat_Loss,
+	}
+	var option = menu.GetSelectMenu(constants.Question_Choose_Goal, goal)
 	var fatloss, maintenance, bulk = calculateGoals(tdee)
 	mapGoals := make(map[string]float64)
 	mapGoals[constants.Maintenance] = maintenance

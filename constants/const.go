@@ -39,3 +39,9 @@ const Question_Select_Macro_Distribution = `Select your Calorie distributions:
 - Low Carb (40/40/20);
 - Higher Carb (30/20/50);
 `
+
+const Question_Choose_Goal = `Select your weight goal:
+- Maintenance;
+- Bulking;
+- FatLoss;
+`

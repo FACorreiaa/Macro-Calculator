@@ -4,10 +4,6 @@ import (
 	"FACorreiaa/Macro-Calculator/constants"
 	"FACorreiaa/Macro-Calculator/pkg/menu"
 	"log"
-
-	"fmt"
-
-	"github.com/manifoldco/promptui"
 )
 
 type UserData struct {
@@ -46,24 +42,6 @@ func convertHeight(value float64, data UserData) float64 {
 	}
 }
 
-func chooseGender() string {
-	prompt := promptui.Select{
-		Label: constants.Question_Select_Gender,
-		Items: []string{constants.Male, constants.Female},
-	}
-
-	_, result, err := prompt.Run()
-
-	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-
-	}
-
-	fmt.Printf("You choose %q\n", result)
-
-	return result
-}
-
 func getActivityValues(label string) float64 {
 	mapActivity := make(map[string]float64)
 	mapActivity[constants.Sedentary_Activity] = sedentaryActivityValue
@@ -96,7 +74,7 @@ func calculateTDEE(bmr float64, activityValue float64) float64 {
 
 func CalculateTdee() float64 {
 	userData := UserData{}
-
+	var genderOptions = []string{constants.Male, constants.Female}
 	var metricOptions = []string{
 		constants.Metric, constants.Imperial,
 	}
@@ -109,7 +87,7 @@ func CalculateTdee() float64 {
 	}
 	var metric = menu.GetSelectMenu(constants.Question_Select_Measure, metricOptions)
 	userData.Metric = metric
-	var gender = chooseGender()
+	var gender = menu.GetSelectMenu(constants.Question_Select_Gender, genderOptions)
 	age, err := menu.GetInputPrompt(constants.Question_Insert_Age)
 	if err != nil {
 		log.Fatal(err)
