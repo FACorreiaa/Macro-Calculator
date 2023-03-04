@@ -10,20 +10,11 @@ import (
 	"github.com/manifoldco/promptui"
 )
 
-type Input struct {
-	label string
-}
-
-type Select struct {
-	label string
-	items []string
-}
-
 func GetInputPrompt(label string) (float64, error) {
 	validate := func(input string) error {
 		_, err := strconv.ParseFloat(input, 64)
 		if err != nil {
-			return errors.New("Invalid number")
+			return errors.New("invalid number")
 		}
 		return nil
 	}
@@ -38,7 +29,7 @@ func GetInputPrompt(label string) (float64, error) {
 		return 0, err
 	}
 
-	data, err := strconv.ParseFloat(result, 8)
+	data, err := strconv.ParseFloat(result, 64)
 	if err != nil {
 		return 0, err
 	}
@@ -46,20 +37,21 @@ func GetInputPrompt(label string) (float64, error) {
 	return data, nil
 }
 
-func CustomSelectMenu(s Select) {
+func GetSelectMenu(label string, options []string) string {
 	prompt := promptui.Select{
-		Label: s.label,
-		Items: s.items,
+		Label: label,
+		Items: options,
 	}
 
 	_, result, err := prompt.Run()
 
 	if err != nil {
 		fmt.Printf("Prompt failed %v\n", err)
-		return
+		return ""
 	}
 
 	fmt.Printf("You choose %q\n", result)
+	return result
 }
 
 func PickOption() string {

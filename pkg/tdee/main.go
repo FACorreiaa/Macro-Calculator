@@ -3,10 +3,9 @@ package tdee
 import (
 	"FACorreiaa/Macro-Calculator/constants"
 	"FACorreiaa/Macro-Calculator/pkg/menu"
+	"log"
 
-	"errors"
 	"fmt"
-	"strconv"
 
 	"github.com/manifoldco/promptui"
 )
@@ -15,11 +14,12 @@ type UserData struct {
 	Age    float64
 	Weight float64
 	Height float64
+	Metric string
 }
 
 const (
 	maleAgeFactor   = 5
-	femaleAgeFactor = -151
+	femaleAgeFactor = -161
 )
 
 var (
@@ -30,23 +30,22 @@ var (
 	extraActiveActivityValue = 1.9
 )
 
-func chooseSystem() {
-	prompt := promptui.Select{
-		Label: "Select Metric",
-		Items: []string{"imperial", "metric"},
+func convertWeight(value float64, data UserData) float64 {
+	if data.Metric == "metric" {
+		return value
+	} else {
+		return value * 0.453592 // 1 lb = 0.453592 kg
 	}
-
-	_, result, err := prompt.Run()
-
-	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return
-	}
-
-	fmt.Printf("You choose %q\n", result)
 }
 
-// MODIFY
+func convertHeight(value float64, data UserData) float64 {
+	if data.Metric == "metric" {
+		return value
+	} else {
+		return value * 2.54 // 1 in = 2.54 cm
+	}
+}
+
 func chooseGender() string {
 	prompt := promptui.Select{
 		Label: "Select gender",
@@ -63,31 +62,6 @@ func chooseGender() string {
 	fmt.Printf("You choose %q\n", result)
 
 	return result
-}
-
-func chooseMeasures(label string) float64 {
-	validate := func(input string) error {
-		_, err := strconv.ParseFloat(input, 64)
-		if err != nil {
-			return errors.New("Invalid number")
-		}
-		return nil
-	}
-
-	prompt := promptui.Prompt{
-		Label:    label,
-		Validate: validate,
-	}
-
-	result, err := prompt.Run()
-
-	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-	}
-
-	fmt.Printf("You choose %q\n", result)
-	data, err := strconv.ParseFloat(result, 8)
-	return data
 }
 
 func chooseActivity() string {
@@ -127,24 +101,6 @@ func getActivityValues(label string) float64 {
 	return float64(mapActivity[label])
 }
 
-func chooseCalculationStyle() {
-	prompt := promptui.Select{
-		Label: "Select the calculation style",
-		Items: []string{
-			constants.Option_Simple,
-			constants.Option_Advanced,
-		},
-	}
-	_, result, err := prompt.Run()
-
-	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return
-	}
-
-	fmt.Printf("You choose %q\n", result)
-}
-
 func calculateBMR(userData UserData, gender string) float64 {
 	var ageFactor float64
 	if gender == "male" {
@@ -153,7 +109,12 @@ func calculateBMR(userData UserData, gender string) float64 {
 		ageFactor = femaleAgeFactor
 	}
 
-	return (10*userData.Weight + 6.25*userData.Height - 5.0*(userData.Age)) + ageFactor
+	if userData.Metric == "metric" {
+		return (10*userData.Weight + 6.25*userData.Height - 5.0*(userData.Age)) + ageFactor
+	} else {
+		return (4.536*userData.Weight + 15.88*userData.Height - 5.0*(userData.Age)) + ageFactor
+	}
+
 }
 
 func calculateTDEE(bmr float64, activityValue float64) float64 {
@@ -161,25 +122,29 @@ func calculateTDEE(bmr float64, activityValue float64) float64 {
 }
 
 func CalculateTdee() float64 {
-	var gender = chooseGender()
 	userData := UserData{}
+
+	var metricOptions = []string{"metric", "imperial"}
+	var metric = menu.GetSelectMenu("Select Metric System", metricOptions)
+	userData.Metric = metric
+	var gender = chooseGender()
 	age, err := menu.GetInputPrompt("Insert age")
 	if err != nil {
-		// handle error
+		log.Fatal(err)
 	}
 	userData.Age = age
 
 	weight, err := menu.GetInputPrompt("Insert weight")
 	if err != nil {
-		// handle error
+		log.Fatal(err)
 	}
-	userData.Weight = weight
+	userData.Weight = convertWeight(weight, userData)
 
 	height, err := menu.GetInputPrompt("Insert height")
 	if err != nil {
-		// handle error
+		log.Fatal(err)
 	}
-	userData.Height = height
+	userData.Height = convertHeight(height, userData)
 	var activityOption = chooseActivity()
 	var bmr = calculateBMR(userData, gender)
 	var activityValue = getActivityValues(activityOption)

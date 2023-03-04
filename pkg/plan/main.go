@@ -61,5 +61,6 @@ func CalculateMacroNutrients(calorieGoal float64) (float64, float64, float64) {
 		carbs := calculateMacroDistribution(0.2, calorieGoal, 4)
 		return protein, fats, carbs
 	}
+
 	return 0, 0, 0
 }
