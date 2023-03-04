@@ -11,12 +11,6 @@ const Moderate_Activity string = "Moderate"
 const Heavy_Activity string = "Heavy"
 const Extra_Heavy_Activity string = "Extra Heavy"
 
-const Sedentary string = "Sedentary"
-const Lightly_Active string = "Light"
-const Moderately_Active string = "Moderate"
-const Very_Active string = "VeryActive"
-const Extra_Active string = "ExtraActive"
-
 const Maintenance string = "Maintenance"
 const Fat_Loss string = "Fat Loss"
 const Bulking string = "Bulking"
