@@ -8,3 +8,7 @@
 - Install dependencies: go mod download
 - Build the executable: go build -o macro-calculator .
 - Run the program: ./macro-calculator
+
+### Download and run
+
+Go to [Releases](https://github.com/FACorreiaa/Macro-Calculator/releases) (Linux, macOS, Windows)
