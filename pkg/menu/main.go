@@ -1,7 +1,6 @@
 package menu
 
 import (
-	"FACorreiaa/Macro-Calculator/constants"
 	"errors"
 	"strconv"
 
@@ -20,8 +19,17 @@ func GetInputPrompt(label string) (float64, error) {
 	}
 
 	prompt := promptui.Prompt{
-		Label:    label,
-		Validate: validate,
+		Label:       label,
+		Default:     "",
+		AllowEdit:   false,
+		Validate:    validate,
+		Mask:        0,
+		HideEntered: false,
+		Templates:   &promptui.PromptTemplates{Prompt: "{{ . }} ", Valid: "{{ . | bold }} ", Invalid: "{{ . | red | bold }} "},
+		IsConfirm:   false,
+		IsVimMode:   false,
+		Stdin:       nil,
+		Stdout:      nil,
 	}
 
 	result, err := prompt.Run()
@@ -35,6 +43,7 @@ func GetInputPrompt(label string) (float64, error) {
 	}
 
 	return data, nil
+
 }
 
 func GetSelectMenu(label string, options []string) string {
@@ -58,29 +67,5 @@ func GetSelectMenu(label string, options []string) string {
 	}
 
 	fmt.Printf("You choose %q\n", result)
-	return result
-}
-
-func PickOption() string {
-	prompt := promptui.Select{
-		Label: `Select your weight goal:
-		- Simple (only see basic TDEE with objective)
-		- Advanced (get values of protein, carbs and fats detailed);
-		`,
-		Templates: nil,
-		Items: []string{
-			constants.Option_Simple,
-			constants.Option_Advanced,
-		},
-	}
-	_, result, err := prompt.Run()
-
-	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return ""
-	}
-
-	fmt.Printf("You choose %q\n", result)
-
 	return result
 }
