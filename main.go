@@ -25,7 +25,6 @@ func main() {
 	fmt.Println(magenta("************************** Mifflin-St Jeor Equation ************************"))
 	fmt.Println(orange("***************************** Give it a try ********************************"))
 	fmt.Println(magenta("****************************** Calculate your macros ***********************"))
-	fmt.Println(orange("****************************************************************************"))
 
 	log.Printf("\n******** Age: %.0f Height:%.0f %s Weight:%.1f %s Gender: %s******** \n",
 		UserData.Age,

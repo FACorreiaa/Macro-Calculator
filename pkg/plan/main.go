@@ -50,7 +50,6 @@ func calculateMacroDistribution(calorieFactor float64, calorieGoal float64, calo
 }
 
 func CalculateMacroNutrients(calorieGoal float64) MacroNutrients {
-	//calculate based on option
 	var calorieDistributionOptions = []string{
 		constants.Low_Carb,
 		constants.Moderate_Carb,

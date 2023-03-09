@@ -90,7 +90,6 @@ func calculateBMR(UserData UserData, gender string) float64 {
 	} else {
 		return (4.536*UserData.Weight + 15.88*UserData.Height - 5.0*(UserData.Age)) + ageFactor
 	}
-
 }
 
 func calculateTDEE(bmr float64, activityValue float64) float64 {
