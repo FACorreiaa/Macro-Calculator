@@ -58,26 +58,26 @@ func convertHeight(value float64, data UserData) float64 {
 
 func getActivityValues(label string) float64 {
 	mapActivity := make(map[string]float64)
-	mapActivity[constants.Sedentary_Activity] = sedentaryActivityValue
-	mapActivity[constants.Light_Activity] = lightActivityValue
-	mapActivity[constants.Moderate_Activity] = moderateActivityValue
-	mapActivity[constants.Heavy_Activity] = veryActiveActivityValue
-	mapActivity[constants.Extra_Heavy_Activity] = extraActiveActivityValue
+	mapActivity[constants.SedentaryActivity] = sedentaryActivityValue
+	mapActivity[constants.LightActivity] = lightActivityValue
+	mapActivity[constants.ModerateActivity] = moderateActivityValue
+	mapActivity[constants.HeavyActivity] = veryActiveActivityValue
+	mapActivity[constants.ExtraHeavyActivity] = extraActiveActivityValue
 	return float64(mapActivity[label])
 }
 
 func getActivityExpplanation(activity float64) string {
 	mapActivityLabel := make(map[float64]string)
-	mapActivityLabel[sedentaryActivityValue] = constants.Sedentary_Activity_Description
-	mapActivityLabel[lightActivityValue] = constants.Light_Activity_Description
-	mapActivityLabel[moderateActivityValue] = constants.Moderate_Activity_Description
-	mapActivityLabel[veryActiveActivityValue] = constants.Heavy_Activity_Description
-	mapActivityLabel[extraActiveActivityValue] = constants.Extra_Heavy_Activity_Description
+	mapActivityLabel[sedentaryActivityValue] = constants.SedentaryActivityDescription
+	mapActivityLabel[lightActivityValue] = constants.LightActivityDescription
+	mapActivityLabel[moderateActivityValue] = constants.ModerateActivityDescription
+	mapActivityLabel[veryActiveActivityValue] = constants.HeavyActivityDescription
+	mapActivityLabel[extraActiveActivityValue] = constants.ExtraHeavyActivityDescription
 	return (mapActivityLabel[activity])
 
 }
 
-func calculateBMR(UserData UserData, gender string) float64 {
+func calculateBMR(data UserData, gender string) float64 {
 	var ageFactor float64
 	if gender == "male" {
 		ageFactor = maleAgeFactor
@@ -85,10 +85,10 @@ func calculateBMR(UserData UserData, gender string) float64 {
 		ageFactor = femaleAgeFactor
 	}
 
-	if UserData.Metric == "metric" {
-		return (10*UserData.Weight + 6.25*UserData.Height - 5.0*(UserData.Age)) + ageFactor
+	if data.Metric == "metric" {
+		return (10*data.Weight + 6.25*data.Height - 5.0*(data.Age)) + ageFactor
 	} else {
-		return (4.536*UserData.Weight + 15.88*UserData.Height - 5.0*(UserData.Age)) + ageFactor
+		return (4.536*data.Weight + 15.88*data.Height - 5.0*(data.Age)) + ageFactor
 	}
 }
 
@@ -118,36 +118,36 @@ func CalculateTdee() (float64, UserData, string, Units) {
 	var metricOptions = []string{
 		constants.Metric, constants.Imperial,
 	}
-	var metric = menu.GetSelectMenu(constants.Question_Select_Measure, metricOptions)
-	var gender = menu.GetSelectMenu(constants.Question_Select_Gender, genderOptions)
+	var metric = menu.GetSelectMenu(constants.QuestionSelectMeasure, metricOptions)
+	var gender = menu.GetSelectMenu(constants.QuestionSelectGender, genderOptions)
 
 	var activityOptions = []string{
-		constants.Sedentary_Activity,
-		constants.Light_Activity,
-		constants.Moderate_Activity,
-		constants.Heavy_Activity,
-		constants.Extra_Heavy_Activity,
+		constants.SedentaryActivity,
+		constants.LightActivity,
+		constants.ModerateActivity,
+		constants.HeavyActivity,
+		constants.ExtraHeavyActivity,
 	}
 	UserData.Metric = metric
 	UserData.Gender = gender
-	age, err := menu.GetInputPrompt(constants.Question_Insert_Age)
+	age, err := menu.GetInputPrompt(constants.QuestionInsertAge)
 	if err != nil {
 		log.Fatal(err)
 	}
 	UserData.Age = age
 
-	weight, err := menu.GetInputPrompt(constants.Question_Insert_Weight)
+	weight, err := menu.GetInputPrompt(constants.QuestionInsertWeight)
 	if err != nil {
 		log.Fatal(err)
 	}
 	UserData.Weight = convertWeight(weight, UserData)
 
-	height, err := menu.GetInputPrompt(constants.Question_Insert_Height)
+	height, err := menu.GetInputPrompt(constants.QuestionInsertHeight)
 	if err != nil {
 		log.Fatal(err)
 	}
 	UserData.Height = convertHeight(height, UserData)
-	var activityOption = menu.GetSelectMenu(constants.Question_Select_Activity, activityOptions)
+	var activityOption = menu.GetSelectMenu(constants.QuestionSelectActivity, activityOptions)
 	var bmr = calculateBMR(UserData, UserData.Gender)
 	var activityValue = getActivityValues(activityOption)
 	var activityDescription = getActivityExpplanation(activityValue)

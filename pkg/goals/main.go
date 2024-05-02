@@ -27,13 +27,13 @@ func GetGoal(tdee float64) float64 {
 	var goal = []string{
 		constants.Maintenance,
 		constants.Bulking,
-		constants.Fat_Loss,
+		constants.FatLoss,
 	}
-	var option = menu.GetSelectMenu(constants.Question_Choose_Goal, goal)
-	var fatloss, maintenance, bulk = calculateGoals(tdee)
+	var option = menu.GetSelectMenu(constants.QuestionChooseGoal, goal)
+	var fatLoss, maintenance, bulk = calculateGoals(tdee)
 	mapGoals := make(map[string]float64)
 	mapGoals[constants.Maintenance] = maintenance
-	mapGoals[constants.Fat_Loss] = fatloss
+	mapGoals[constants.FatLoss] = fatLoss
 	mapGoals[constants.Bulking] = bulk
-	return (mapGoals[option])
+	return mapGoals[option]
 }

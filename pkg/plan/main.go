@@ -51,11 +51,11 @@ func calculateMacroDistribution(calorieFactor float64, calorieGoal float64, calo
 
 func CalculateMacroNutrients(calorieGoal float64) MacroNutrients {
 	var calorieDistributionOptions = []string{
-		constants.Low_Carb,
-		constants.Moderate_Carb,
-		constants.High_Carb,
+		constants.LowCarb,
+		constants.ModerateCarb,
+		constants.HighCarb,
 	}
-	var calorieDistributionOption = menu.GetSelectMenu(constants.Question_Select_Macro_Distribution, calorieDistributionOptions)
+	var calorieDistributionOption = menu.GetSelectMenu(constants.QuestionSelectMacroDistribution, calorieDistributionOptions)
 	if ratios, ok := macroRatios[calorieDistributionOption]; ok {
 		protein := calculateMacroDistribution(ratios.ProteinRatio, calorieGoal, proteinGramValue)
 		fats := calculateMacroDistribution(ratios.FatRatio, calorieGoal, fatGramValue)
