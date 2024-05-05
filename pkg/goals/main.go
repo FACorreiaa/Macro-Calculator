@@ -23,7 +23,7 @@ func calculateGoals(tdee float64) (float64, float64, float64) {
 	return fatLoss, tdee, bulk
 }
 
-func GetGoal(tdee float64) float64 {
+func GetGoal(tdee float64) (float64, string) {
 	var goal = []string{
 		constants.Maintenance,
 		constants.Bulking,
@@ -35,5 +35,5 @@ func GetGoal(tdee float64) float64 {
 	mapGoals[constants.Maintenance] = maintenance
 	mapGoals[constants.FatLoss] = fatLoss
 	mapGoals[constants.Bulking] = bulk
-	return mapGoals[option]
+	return mapGoals[option], option
 }

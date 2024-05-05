@@ -114,14 +114,14 @@ func GetCorrectUnitSystem(metric string) Units {
 func CalculateTdee() (float64, UserData, string, Units) {
 	UserData := UserData{}
 	Unit := Units{}
-	var genderOptions = []string{constants.Male, constants.Female}
-	var metricOptions = []string{
+	genderOptions := []string{constants.Male, constants.Female}
+	metricOptions := []string{
 		constants.Metric, constants.Imperial,
 	}
-	var metric = menu.GetSelectMenu(constants.QuestionSelectMeasure, metricOptions)
-	var gender = menu.GetSelectMenu(constants.QuestionSelectGender, genderOptions)
+	metric := menu.GetSelectMenu(constants.QuestionSelectMeasure, metricOptions)
+	gender := menu.GetSelectMenu(constants.QuestionSelectGender, genderOptions)
 
-	var activityOptions = []string{
+	activityOptions := []string{
 		constants.SedentaryActivity,
 		constants.LightActivity,
 		constants.ModerateActivity,
@@ -147,13 +147,13 @@ func CalculateTdee() (float64, UserData, string, Units) {
 		log.Fatal(err)
 	}
 	UserData.Height = convertHeight(height, UserData)
-	var activityOption = menu.GetSelectMenu(constants.QuestionSelectActivity, activityOptions)
-	var bmr = calculateBMR(UserData, UserData.Gender)
-	var activityValue = getActivityValues(activityOption)
-	var activityDescription = getActivityExpplanation(activityValue)
+	activityOption := menu.GetSelectMenu(constants.QuestionSelectActivity, activityOptions)
+	bmr := calculateBMR(UserData, UserData.Gender)
+	activityValue := getActivityValues(activityOption)
+	activityDescription := getActivityExpplanation(activityValue)
 
-	var tdee = calculateTDEE(bmr, activityValue)
-	var unit = GetCorrectUnitSystem(UserData.Metric)
+	tdee := calculateTDEE(bmr, activityValue)
+	unit := GetCorrectUnitSystem(UserData.Metric)
 	Unit.Height = unit.Height
 	Unit.Weight = unit.Weight
 	return tdee, UserData, activityDescription, Unit

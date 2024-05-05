@@ -15,9 +15,9 @@ func main() {
 	orange := color.New(color.FgHiYellow).SprintFunc()
 
 	magenta := color.New(color.FgMagenta).SprintFunc()
-	tdee, UserData, activityDescription, Unit := tdee.CalculateTdee()
-	goal := goals.GetGoal(tdee)
-	macros := plan.CalculateMacroNutrients(goal)
+	tdeeVale, UserData, activityDescription, Unit := tdee.CalculateTdee()
+	goal, option := goals.GetGoal(tdeeVale)
+	macros, nutPlan := plan.CalculateMacroNutrients(goal)
 	fmt.Println(magenta("****************************************************************************"))
 	fmt.Println(orange("Inspired by:  https://prophysiquemacros.com/"))
 	fmt.Println(magenta("Using the formula: Mifflin-St Jeor Equation"))
@@ -27,9 +27,11 @@ func main() {
 		UserData.Height, red(Unit.Height),
 		UserData.Weight, red(Unit.Weight),
 		UserData.Gender)
-	fmt.Printf("Your TDEE is %.2f\n", tdee)
-	fmt.Printf("Your goal is %.2f\n", goal)
-	fmt.Printf("Your activity Description %s\n", red(activityDescription))
+	fmt.Printf("TDEE: %.2f\n", tdeeVale)
+	fmt.Printf("Goal: %.2f\n", goal)
+	fmt.Printf("Activity: %s\n", red(activityDescription))
+	fmt.Printf("Option: %s\n", red(option))
+	fmt.Printf("Nutrition plan: %s\n", red(nutPlan))
 	fmt.Print(orange("Based on your TDEE and your goal, your macro distributions are: \n"))
 	fmt.Printf("\n Protein %.2f: Fats:  %.2f Carbs %.2f \n", macros.Protein, macros.Fats, macros.Carbs)
 	fmt.Println(magenta("****************************************************************************"))
