@@ -14,8 +14,8 @@ var (
 
 func calculateGoals(tdee float64) (float64, float64, float64) {
 
-	var fatLoss = tdee - caloricDeficit
-	var bulk = tdee + caloricExcedent
+	fatLoss := tdee - caloricDeficit
+	bulk := tdee + caloricExcedent
 	fmt.Printf("Your calorie intake on cut are: %.2f\n", fatLoss)
 	fmt.Printf("Your calorie intake on bulk are: %.2f\n", bulk)
 	fmt.Printf("Your calorie intake on maintenance are: %.2f\n", tdee)
@@ -24,13 +24,13 @@ func calculateGoals(tdee float64) (float64, float64, float64) {
 }
 
 func GetGoal(tdee float64) (float64, string) {
-	var goal = []string{
+	goal := []string{
 		constants.Maintenance,
 		constants.Bulking,
 		constants.FatLoss,
 	}
-	var option = menu.GetSelectMenu(constants.QuestionChooseGoal, goal)
-	var fatLoss, maintenance, bulk = calculateGoals(tdee)
+	option := menu.GetSelectMenu(constants.QuestionChooseGoal, goal)
+	fatLoss, maintenance, bulk := calculateGoals(tdee)
 	mapGoals := make(map[string]float64)
 	mapGoals[constants.Maintenance] = maintenance
 	mapGoals[constants.FatLoss] = fatLoss

@@ -13,15 +13,14 @@ import (
 func main() {
 	red := color.New(color.FgRed).Add(color.Bold).SprintfFunc()
 	orange := color.New(color.FgHiYellow).SprintFunc()
-
 	magenta := color.New(color.FgMagenta).SprintFunc()
 	tdeeVale, UserData, activityDescription, Unit := tdee.CalculateTdee()
 	goal, option := goals.GetGoal(tdeeVale)
 	macros, nutPlan := plan.CalculateMacroNutrients(goal)
+
 	fmt.Println(magenta("****************************************************************************"))
 	fmt.Println(orange("Inspired by:  https://prophysiquemacros.com/"))
 	fmt.Println(magenta("Using the formula: Mifflin-St Jeor Equation"))
-
 	log.Printf("\nAge: %.0f Height:%.0f %s Weight:%.1f %s Gender: %s \n",
 		UserData.Age,
 		UserData.Height, red(Unit.Height),
