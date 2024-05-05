@@ -1,3 +1,3 @@
 FROM scratch
-COPY calc /usr/bin/calc
-ENTRYPOINT ["/usr/bin/calc"]
+ENTRYPOINT ["/mybin"]
+COPY mybin /
